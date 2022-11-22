@@ -228,7 +228,7 @@ def _fix_inner(
 
         apply_fix()
 
-        diff = run('git', 'diff', 'origin/HEAD', '--exit-code', check=False)
+        diff = run('git', 'diff', 'origin/HEAD', '--irreversible-delete', '--exit-code', check=False)
         if not diff.returncode:
             return
 
