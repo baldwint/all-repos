@@ -240,10 +240,7 @@ def _fix_inner(
         ):
             return
 
-        commit_message = (
-            f'{commit.msg}\n\n'
-            f'Committed via https://github.com/asottile/all-repos'
-        )
+        commit_message = str(commit.msg)
         commit_cmd: tuple[str, ...] = (
             'git', 'commit', '--quiet', '-a', '-m', commit_message,
         )
