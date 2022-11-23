@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import subprocess
 from typing import NamedTuple
+from urllib.parse import urlparse
 
 from all_repos import autofix_lib
 from all_repos import git
@@ -28,7 +29,10 @@ def make_pull_request(
     headers = {'Authorization': f'token {settings.api_key}'}
 
     remote_url = git.remote('.')
-    _, _, repo_slug = remote_url.rpartition(':')
+    if remote_url.startswith('git@'):
+        _, _, repo_slug = remote_url.rpartition(':')
+    else:
+        repo_slug = urlparse(remote_url).path
 
     if settings.fork:
         resp = github_api.req(
